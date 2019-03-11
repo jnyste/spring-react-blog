@@ -1,4 +1,4 @@
-package com.example.blogapplication;
+package me.jsbn.blogapplication;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

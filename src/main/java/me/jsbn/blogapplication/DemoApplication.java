@@ -1,4 +1,4 @@
-package com.example.blogapplication;
+package me.jsbn.blogapplication;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
