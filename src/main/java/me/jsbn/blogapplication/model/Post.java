@@ -5,7 +5,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "Post")
+@Table(name = "posts")
 public class Post extends BlogEntityModel {
     @Id
     @GeneratedValue(generator = "post_generator")
