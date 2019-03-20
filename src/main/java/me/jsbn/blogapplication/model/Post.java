@@ -1,5 +1,7 @@
 package me.jsbn.blogapplication.model;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -27,6 +29,13 @@ public class Post extends BlogEntityModel {
 
     @JoinTable(name = "post_tags", joinColumns = { @JoinColumn(name = "post_id") }, inverseJoinColumns = { @JoinColumn(name = "tag_id")})
     private Set<Tag> tags = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = {
+            CascadeType.PERSIST, CascadeType.MERGE
+    })
+
+    @JoinColumn(name = "post")
+    private Set<PostLike> likes = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -58,5 +67,13 @@ public class Post extends BlogEntityModel {
 
     public void setTags(Set<Tag> tags) {
         this.tags = tags;
+    }
+
+    public Set<PostLike> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(Set<PostLike> likes) {
+        this.likes = likes;
     }
 }
