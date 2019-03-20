@@ -28,7 +28,7 @@ class PostsPage extends Component {
                 {this.state.posts &&
                  this.state.posts.map(
                      post =>
-                         <PostSummary key={post.id} author={post.author} title={post.title} content={post.content} id={post.id} createdTime={post.createdTime}/>)}
+                         <PostSummary key={post.id} author={post.author} title={post.title} content={post.content} id={post.id} createdTime={post.createdTime} likes={post.likes}/>)}
             </React.Fragment>
         )
     }
