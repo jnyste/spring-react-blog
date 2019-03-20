@@ -10,10 +10,10 @@ class PostsPage extends Component {
     }
 
     componentDidMount() {
-        let pageUrl = "http://localhost:8080/api/posts";
+        let pageUrl = "/api/posts";
 
         if (this.props.page) {
-            pageUrl = "http://localhost:8080/api/posts/page/" + (this.props.page - 1);
+            pageUrl = "/api/posts/page/" + (this.props.page - 1);
         }
 
         fetch(pageUrl)
