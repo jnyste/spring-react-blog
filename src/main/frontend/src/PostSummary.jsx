@@ -8,6 +8,11 @@ class Post extends Component {
                 <h2><a href={"/posts/" + this.props.id}>{this.props.title}</a></h2>
                 <p><i>Posted by PLACEHOLDER at {new Date(Date.parse(this.props.createdTime)).toString()}</i></p>
                 <p>{this.renderContent(this.props.content)}</p>
+                <div className={"like-box row"}>
+                    <div className={"like-content two columns"}>
+                        <i className={"like-thumb fas fa-thumbs-up"}/><span className={"like-number"}>{this.props.likes.length}</span>
+                    </div>
+                </div>
                 {this.maybeRenderReadMore(this.props.content, this.props.id)}
                 <hr></hr>
             </div>
@@ -25,7 +30,7 @@ class Post extends Component {
 
     maybeRenderReadMore(content, id) {
         if(content.length >= 200) {
-            return <em><a href={"/posts/" + id}>Read More..</a></em>
+            return <React.Fragment><em><a href={"/posts/" + id}>Read More..</a></em></React.Fragment>
         } else {
         }
     }
