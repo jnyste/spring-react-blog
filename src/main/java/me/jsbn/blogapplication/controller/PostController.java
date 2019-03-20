@@ -22,12 +22,24 @@ public class PostController {
         return postRepository.findAll(pageable);
     }
 
+    @GetMapping("/api/posts/all")
+    public Page<Post> getAllPosts(Pageable pageable) {
+        Pageable allPosts = PageRequest.of(0, 10000);
+        return postRepository.findAll(allPosts);
+    }
+
+    @DeleteMapping("/api/posts/delete/{id}")
+    public void deletePostById(@PathVariable Long id) {
+        postRepository.deleteById(id);
+    }
+
     @GetMapping("/api/posts/page/{page}")
     public Page<Post> getPostPage(Pageable pageable, @PathVariable int page) {
         Pageable pageToGet = PageRequest.of(page, 5);
         return postRepository.findAll(pageToGet);
     }
 
+    @CrossOrigin
     @PostMapping("/api/posts")
     public Post createPost(@Valid @RequestBody Post post) {
         return postRepository.save(post);
@@ -42,6 +54,7 @@ public class PostController {
                     return postRepository.save(post);
                 }).orElseThrow(() -> new ResourceNotFoundException("Post not found with ID " + postId));
     }
+
 
     @GetMapping("/api/posts/{postId}")
     public Post getPost(@PathVariable Long postId) {
