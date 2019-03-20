@@ -3,9 +3,11 @@ package me.jsbn.blogapplication.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "posts")
+@Table(name = "Post")
 public class Post extends BlogEntityModel {
     @Id
     @GeneratedValue(generator = "post_generator")
@@ -18,6 +20,13 @@ public class Post extends BlogEntityModel {
 
     @Column(columnDefinition = "text")
     private String content;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {
+            CascadeType.PERSIST, CascadeType.MERGE
+    })
+
+    @JoinTable(name = "post_tags", joinColumns = { @JoinColumn(name = "post_id") }, inverseJoinColumns = { @JoinColumn(name = "tag_id")})
+    private Set<Tag> tags = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -41,5 +50,13 @@ public class Post extends BlogEntityModel {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Set<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
     }
 }
