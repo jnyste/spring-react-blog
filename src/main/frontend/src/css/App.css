@@ -1,0 +1,87 @@
+body {
+  font-family: "Open Sans";
+}
+
+.like-content {
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+  border-radius: 100px;
+  padding: 5px;
+  font-size: 16px;
+}
+
+.likes-flex {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 1px) and (max-device-width : 800px) {
+  .posted-by {
+    display: none;
+  }
+}
+
+.posted-by {
+  margin-left: auto;
+}
+
+.like-call-to-action {
+  border-radius: 1000px;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.like-call-to-action i {
+  font-size: 2em;
+}
+
+.like-content i {
+}
+
+.like-content span {
+  margin-left: 1em;
+  font-size: 16px;
+}
+
+.like-number {
+  margin-left: 1em;
+}
+
+h2 a {
+  text-decoration: none;
+  color: #222;
+}
+
+h1 a {
+  text-decoration: none;
+  color: #222;
+}
+
+h1, h6, h5, h2 {
+  font-family: "Roboto Slab";
+  font-weight: 300;
+}
+
+h1, h6, h5 {
+  text-align: center;
+}
+
+h5 i {
+  padding: 5px;
+}
+
+h6 {
+  font-family: "Roboto Slab";
+  font-weight: 300;
+}
+
+.post em a {
+  text-decoration: none;
+  color: #333;
+}
+
+hr {
+  width: 50%;
+}
