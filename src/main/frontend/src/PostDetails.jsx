@@ -5,14 +5,19 @@ class PostDetails extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { post: [] }
+        this.state = { post: [], likes: 0 }
+        this.likePost = this.likePost.bind(this);
     }
 
     componentDidMount() {
 
-        fetch("http://localhost:8080/api/posts/" + this.props.match.params.id).then(response => response.json())
+        let likeAmount = 0;
+
+        fetch("http://localhost:8080/api/posts/" + this.props.match.params.id, {
+            method: "GET"
+        }).then(response => response.json())
             .then(data => {
-                this.setState({post: data});
+                this.setState({post: data, likes: data.likes ? data.likes.length : 0});
             })
     }
 
@@ -22,10 +27,29 @@ class PostDetails extends Component {
                 <Header/>
                 <h1>{this.state.post.title}</h1>
                 {this.state.post.content}
-                <br/><br/><br/>
-                <p><i>Posted by PLACEHOLDER at {new Date(Date.parse(this.props.createdTime)).toString()}</i></p>
+                <hr/>
+                <div className={"likes-flex"}>
+                    <div className={"like-call-to-action u-pull-left"}>
+                        <button onClick={this.likePost}>
+                            <i class="fas fa-thumbs-up"/>
+                        </button>
+                        <span className={"like-number"}><span id={"likesAmount"}>{this.state.likes}</span></span>
+                    </div>
+                    <div className={"u-pull-right posted-by"}>
+                        Posted by PLACEHOLDER at {this.state.post.createdTime}
+                    </div>
+                </div>
             </div>
         );
+    }
+
+    likePost() {
+        fetch("http://localhost:8080/api/posts/like/" + this.state.post.id, {
+            method: "POST"
+
+        }).then((res) => console.log(res));
+        this.setState({likes: this.state.likes + 1});
+        document.querySelector("button").disabled = true;
     }
 
     paragraphify(str) {
