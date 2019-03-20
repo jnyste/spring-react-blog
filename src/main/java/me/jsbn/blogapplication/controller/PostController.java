@@ -5,6 +5,7 @@ import me.jsbn.blogapplication.model.Post;
 import me.jsbn.blogapplication.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +22,12 @@ public class PostController {
         return postRepository.findAll(pageable);
     }
 
+    @GetMapping("/api/posts/page/{page}")
+    public Page<Post> getPostPage(Pageable pageable, @PathVariable int page) {
+        Pageable pageToGet = PageRequest.of(page, 5);
+        return postRepository.findAll(pageToGet);
+    }
+
     @PostMapping("/api/posts")
     public Post createPost(@Valid @RequestBody Post post) {
         return postRepository.save(post);
@@ -34,6 +41,11 @@ public class PostController {
                     post.setContent(postRequest.getContent());
                     return postRepository.save(post);
                 }).orElseThrow(() -> new ResourceNotFoundException("Post not found with ID " + postId));
+    }
+
+    @GetMapping("/api/posts/{postId}")
+    public Post getPost(@PathVariable Long postId) {
+        return postRepository.findById(postId).orElseThrow(() -> new ResourceNotFoundException("Post not found with ID " + postId));
     }
 
 }
