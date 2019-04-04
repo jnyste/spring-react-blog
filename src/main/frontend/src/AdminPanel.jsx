@@ -14,7 +14,7 @@ class AdminPanel extends Component {
     }
 
     componentDidMount() {
-        fetch("http://localhost:8080/api/posts/all").then((res) => {
+        fetch("/api/posts/all").then((res) => {
             return res.json();
         }).then((res) => {
             this.setState({allPosts: res.content})
@@ -36,7 +36,7 @@ class AdminPanel extends Component {
     startEditingPost(post) {
         this.setState({editing: true, postBeingEdited: post});
 
-        fetch("http://localhost:8080/api/posts/" + post).then((res) => {
+        fetch("/api/posts/" + post).then((res) => {
             return res.json();
         }).then((res) => {
             let title_ = document.querySelector("#title");
@@ -59,7 +59,7 @@ class AdminPanel extends Component {
             } else {
                 obj = {title: title_, content: body_, tags: tags_};
             }
-            fetch("http://localhost:8080/api/posts/" + this.state.postBeingEdited, {
+            fetch("/api/posts/" + this.state.postBeingEdited, {
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -102,7 +102,7 @@ class AdminPanel extends Component {
 
     deletePost(id) {
         console.log(id);
-        fetch("http://localhost:8080/api/posts/delete/" + id, {
+        fetch("/api/posts/delete/" + id, {
             method: "DELETE"
         }).then(() => alert("DONE!"));
     }
@@ -118,7 +118,7 @@ class AdminPanel extends Component {
             obj = {title: title_, content: body_, tags: tags_};
         }
 
-        fetch("http://localhost:8080/api/posts", {
+        fetch("/api/posts", {
             headers: {
                 'Content-Type': 'application/json'
             },
