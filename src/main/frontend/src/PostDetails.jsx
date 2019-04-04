@@ -14,7 +14,7 @@ class PostDetails extends Component {
 
         let likeAmount = 0;
 
-        fetch("http://localhost:8080/api/posts/" + this.props.match.params.id, {
+        fetch("/api/posts/" + this.props.match.params.id, {
             method: "GET"
         }).then(response => response.json())
             .then(data => {
@@ -45,7 +45,7 @@ class PostDetails extends Component {
     }
 
     likePost() {
-        fetch("http://localhost:8080/api/posts/like/" + this.state.post.id, {
+        fetch("/api/posts/like/" + this.state.post.id, {
             method: "POST"
 
         }).then((res) => console.log(res));

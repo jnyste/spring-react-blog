@@ -8,7 +8,7 @@ class PageListing extends Component {
     }
 
     componentDidMount() {
-        fetch("http://localhost:8080/api/posts/", {
+        fetch("/api/posts/", {
             method: "GET"
         }).then(response => response.json())
             .then(data => {
