@@ -24,13 +24,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("admin").password(passwordEncoder().encode("admin"))
-                .authorities("ROLE_ADMIN");
-    }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -38,7 +31,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**").permitAll();
         http.csrf().disable();
         http.cors();
-        http.authorizeRequests().antMatchers("/admin").hasRole("ADMIN").and().httpBasic();
         http.headers().frameOptions().disable();
     }
 
