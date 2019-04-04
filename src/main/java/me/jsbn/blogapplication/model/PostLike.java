@@ -12,13 +12,15 @@ public class PostLike {
 
     private Long id;
     private Long post;
+    private String ip;
 
     public PostLike() {
 
     }
 
-    public PostLike(Long postId) {
+    public PostLike(Long postId, String ip) {
         this.post = postId;
+        this.ip = ip;
     }
 
     public Long getId() {
@@ -35,5 +37,13 @@ public class PostLike {
 
     public void setPost(Long post) {
         this.post = post;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
     }
 }

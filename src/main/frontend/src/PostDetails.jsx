@@ -9,11 +9,12 @@ class PostDetails extends Component {
         this.likePost = this.likePost.bind(this);
     }
 
+
     componentDidMount() {
 
         let likeAmount = 0;
 
-        fetch("/api/posts/" + this.props.match.params.id, {
+        fetch("http://localhost:8080/api/posts/" + this.props.match.params.id, {
             method: "GET"
         }).then(response => response.json())
             .then(data => {
@@ -31,7 +32,7 @@ class PostDetails extends Component {
                 <div className={"likes-flex"}>
                     <div className={"like-call-to-action u-pull-left"}>
                         <button onClick={this.likePost}>
-                            <i class="fas fa-thumbs-up"/>
+                            <i class="fas fa-thumbs-up" />
                         </button>
                         <span className={"like-number"}><span id={"likesAmount"}>{this.state.likes}</span></span>
                     </div>
@@ -44,12 +45,15 @@ class PostDetails extends Component {
     }
 
     likePost() {
-        fetch("/api/posts/like/" + this.state.post.id, {
+        fetch("http://localhost:8080/api/posts/like/" + this.state.post.id, {
             method: "POST"
 
         }).then((res) => console.log(res));
         this.setState({likes: this.state.likes + 1});
         document.querySelector("button").disabled = true;
+        let thumb = document.querySelector(".fa-thumbs-up");
+        thumb.classList.add("thumb-animation");
+        thumb.disabled = true;
     }
 
     paragraphify(str) {

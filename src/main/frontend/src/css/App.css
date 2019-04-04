@@ -2,6 +2,82 @@ body {
   font-family: "Open Sans";
 }
 
+.admin-all-posts {
+  list-style: none;
+}
+
+.admin-all-posts button {
+  margin-left: 10%;
+}
+
+h5 a {
+  color: #222;
+}
+
+.post-summary-tags {
+  margin-top: 5%;
+}
+
+.post-summary-tags a {
+  text-decoration: none;
+}
+
+.post-summary-tag {
+  padding-left: 2.5%;
+  padding-right: 2.5%;
+  margin-right: 2%;
+  text-align: center;
+  background-color: rgba(34,34,34, 1);
+  padding-top: 0.5%;
+  padding-bottom: 0.5%;
+  color: white;
+  border-radius: 100px;
+}
+
+.thumb-animation {
+  -webkit-animation-name: thumb-animation;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-timing-function: ease;
+  -webkit-animation-fill-mode: forwards;
+}
+
+.thumb-animation {
+  -webkit-animation-name: thumb-animation;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-timing-function: ease;
+  -webkit-animation-fill-mode: forwards;
+}
+
+button:disabled {
+  -webkit-animation-name: like-button-animation;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-timing-function: ease;
+  -webkit-animation-fill-mode: forwards;
+
+  pointer-events: none;
+}
+
+@-webkit-keyframes thumb-animation {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg)
+  }
+}
+
+@-webkit-keyframes like-button-animation {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.3;
+  }
+}
+
 .like-content {
   -webkit-border-radius: 100px;
   -moz-border-radius: 100px;

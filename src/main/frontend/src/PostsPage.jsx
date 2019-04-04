@@ -10,16 +10,20 @@ class PostsPage extends Component {
     }
 
     componentDidMount() {
-        let pageUrl = "/api/posts";
+        let pageUrl = "http://localhost:8080/api/posts";
 
         if (this.props.page) {
-            pageUrl = "/api/posts/page/" + (this.props.page - 1);
+            pageUrl = "http://localhost:8080/api/posts/page/" + (this.props.page - 1);
+        }
+
+        if (this.props.tag) {
+            pageUrl = "http://localhost:8080/api/posts/tag/" + this.props.tag;
         }
 
         fetch(pageUrl)
             .then(resp => resp.json())
-            .then(resp => resp["content"])
-            .then(resp => this.setState({posts: resp}))
+            .then(resp => { return this.props.tag ? resp : resp["content"] })
+            .then(resp => { this.props.tag ? this.setState({posts: resp}) : this.setState({posts: resp})})
     }
 
     render() {
@@ -28,7 +32,7 @@ class PostsPage extends Component {
                 {this.state.posts &&
                  this.state.posts.map(
                      post =>
-                         <PostSummary key={post.id} author={post.author} title={post.title} content={post.content} id={post.id} createdTime={post.createdTime} likes={post.likes}/>)}
+                         <PostSummary key={post.id} author={post.author} title={post.title} content={post.content} id={post.id} createdTime={post.createdTime} likes={post.likes} tags={post.tags}/>)}
             </React.Fragment>
         )
     }
