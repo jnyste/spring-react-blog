@@ -9,6 +9,7 @@ class PostDetails extends Component {
         this.likePost = this.likePost.bind(this);
     }
 
+
     componentDidMount() {
 
         let likeAmount = 0;
@@ -31,7 +32,7 @@ class PostDetails extends Component {
                 <div className={"likes-flex"}>
                     <div className={"like-call-to-action u-pull-left"}>
                         <button onClick={this.likePost}>
-                            <i class="fas fa-thumbs-up"/>
+                            <i class="fas fa-thumbs-up" />
                         </button>
                         <span className={"like-number"}><span id={"likesAmount"}>{this.state.likes}</span></span>
                     </div>
@@ -50,6 +51,9 @@ class PostDetails extends Component {
         }).then((res) => console.log(res));
         this.setState({likes: this.state.likes + 1});
         document.querySelector("button").disabled = true;
+        let thumb = document.querySelector(".fa-thumbs-up");
+        thumb.classList.add("thumb-animation");
+        thumb.disabled = true;
     }
 
     paragraphify(str) {

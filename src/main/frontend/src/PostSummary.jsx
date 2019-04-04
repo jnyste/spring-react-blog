@@ -14,6 +14,7 @@ class Post extends Component {
                     </div>
                 </div>
                 {this.maybeRenderReadMore(this.props.content, this.props.id)}
+                {this.renderTags(this.props.tags)}
                 <hr></hr>
             </div>
         );
@@ -33,6 +34,12 @@ class Post extends Component {
             return <React.Fragment><em><a href={"/posts/" + id}>Read More..</a></em></React.Fragment>
         } else {
         }
+    }
+
+    renderTags(tags) {
+        return <div className={"post-summary-tags"}>
+            {tags.sort((a, b) => a.content.localeCompare(b.content)).map((tag) => <a href={"/posts/tag/" + tag.content}><span className={"post-summary-tag"}>{tag.content}</span></a>)}
+        </div>;
     }
 }
 

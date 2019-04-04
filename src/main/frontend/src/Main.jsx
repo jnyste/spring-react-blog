@@ -18,6 +18,7 @@ class Main extends Component {
                     <Route exact path='/' render={(routeProps) => (<Index {...routeProps} /> )} />
                     <Route exact path='/admin' component={AdminPanel}/>
                     <Route exact path='/posts/:id' render={(routeProps) => (<PostDetails {...routeProps} /> )}/>
+                    <Route exact path='/posts/tag/:tag' render={(routeProps) => (<Index {...routeProps} /> )}/>
                     <Route exact path='/page/:page' render={(routeProps) => (<Index {...routeProps} /> )} />
                 </Switch>
             </main>

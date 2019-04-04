@@ -19,8 +19,8 @@ class Index extends Component {
         return (
             <div className={"container"}>
                 <Header/>
-                <PostsPage page={this.props.match.params.page}/>
-                <PageListing/>
+                <PostsPage page={this.props.match.params.page} tag={this.props.match.params.tag}/>
+                <PageListing page={this.props.match.params.pageTotal}/>
             </div>
         );
     }

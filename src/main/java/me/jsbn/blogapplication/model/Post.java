@@ -1,7 +1,5 @@
 package me.jsbn.blogapplication.model;
 
-import org.hibernate.annotations.Cascade;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -11,6 +9,24 @@ import java.util.Set;
 @Entity
 @Table(name = "Post")
 public class Post extends BlogEntityModel {
+
+    public Post() {
+
+    }
+
+    public Post(String title, String content, String... tags) {
+        this.title = title;
+        this.content = content;
+        for (String t : tags) {
+            this.getTags().add(new Tag(t));
+        }
+    }
+
+    public Post(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
+
     @Id
     @GeneratedValue(generator = "post_generator")
     @SequenceGenerator(name = "post_generator", sequenceName = "post_sequence")
