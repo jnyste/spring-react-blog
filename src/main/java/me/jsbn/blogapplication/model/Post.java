@@ -1,5 +1,9 @@
 package me.jsbn.blogapplication.model;
 
+/**
+ * Class for blog posts.
+ */
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -49,9 +53,11 @@ public class Post extends BlogEntityModel {
     @OneToMany(fetch = FetchType.LAZY, cascade = {
             CascadeType.PERSIST, CascadeType.MERGE
     })
-
     @JoinColumn(name = "post")
     private Set<PostLike> likes = new HashSet<>();
+
+    @ManyToOne
+    private PostComment comment;
 
     public Long getId() {
         return id;

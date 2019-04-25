@@ -1,5 +1,9 @@
 package me.jsbn.blogapplication;
 
+/**
+ * Web configuration.
+ */
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -10,6 +14,10 @@ import java.io.IOException;
 
 @Configuration
 public class WebConfiguration extends WebMvcConfigurerAdapter {
+
+    /**
+     * Serve index.html and static files or do API calls when necessary. Required for React and Spring to work together.
+     */
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

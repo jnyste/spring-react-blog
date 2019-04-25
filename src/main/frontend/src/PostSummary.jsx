@@ -6,7 +6,7 @@ class Post extends Component {
         return (
             <div className={"post"}>
                 <h2><a href={"/posts/" + this.props.id}>{this.props.title}</a></h2>
-                <p><i>Posted by PLACEHOLDER at {new Date(Date.parse(this.props.createdTime)).toString()}</i></p>
+                <p><i>Posted by PLACEHOLDER at {new Date(Date.parse(this.props.createdTime)).toGMTString()}</i></p>
                 <p>{this.renderContent(this.props.content)}</p>
                 <div className={"like-box row"}>
                     <div className={"like-content two columns"}>

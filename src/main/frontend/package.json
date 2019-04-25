@@ -5,6 +5,7 @@
   "dependencies": {
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
+    "react-google-login": "^5.0.4",
     "react-router-dom": "^4.3.0",
     "react-scripts": "2.1.8"
   },
@@ -15,7 +16,6 @@
     "eject": "react-scripts eject"
   },
   "proxy": "http://localhost:8080",
-
   "eslintConfig": {
     "extends": "react-app"
   },

@@ -90,6 +90,7 @@ button:disabled {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  padding-bottom: 2em;
 }
 
 /* Smartphones (portrait and landscape) ----------- */
@@ -121,8 +122,22 @@ button:disabled {
   font-size: 16px;
 }
 
+
+
 .like-number {
   margin-left: 1em;
+}
+
+.commentField {
+  width: 100%;
+}
+
+.notLoggedInWarning {
+  padding-bottom: 1em;
+}
+
+.googleLogin button {
+  height: auto;
 }
 
 h2 a {
@@ -160,4 +175,12 @@ h6 {
 
 hr {
   width: 50%;
+}
+
+.comment h5 {
+  text-align: left;
+}
+
+.comment {
+  margin-bottom: 1em;
 }

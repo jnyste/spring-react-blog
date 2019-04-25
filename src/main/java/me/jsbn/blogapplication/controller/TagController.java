@@ -1,5 +1,9 @@
 package me.jsbn.blogapplication.controller;
 
+/**
+ * REST controller for tags.
+ */
+
 import me.jsbn.blogapplication.model.Post;
 import me.jsbn.blogapplication.model.Tag;
 import me.jsbn.blogapplication.repository.TagRepository;
@@ -18,6 +22,12 @@ public class TagController {
 
     @Autowired
     TagRepository tagRepository;
+
+    /**
+     * Find tags by their content.
+     * @param content The content of the tag.
+     * @return List of tags.
+     */
 
     @GetMapping("/api/tags/{content}")
     public List<Tag> getTagsByContent(@PathVariable String content) {

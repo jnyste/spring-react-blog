@@ -1,7 +1,11 @@
 package me.jsbn.blogapplication.controller;
 
+/**
+ * REST controller for comments
+ */
+
 import me.jsbn.blogapplication.controller.exception.ResourceNotFoundException;
-import me.jsbn.blogapplication.model.Comment;
+import me.jsbn.blogapplication.model.PostComment;
 import me.jsbn.blogapplication.repository.CommentRepository;
 import me.jsbn.blogapplication.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,34 +24,40 @@ public class CommentController {
     @Autowired
     private PostRepository postRepository;
 
+    /**
+     * Find comments by post ID.
+     * @param postId Post ID to search by.
+     * @return comments by post ID.
+     */
+
     @GetMapping("/api/posts/{postId}/comments")
-    public List<Comment> getCommentsByPostId(@PathVariable Long postId) {
-        return commentRepository.findByPostId(postId);
+    public List<PostComment> getCommentsByPostId(@PathVariable Long postId) {
+        return commentRepository.findByPost(postId);
     }
 
+    /**
+     * Add a comment to a post.
+     * @param postId Post to add the comment to.
+     * @param comment The comment entity.
+     * @return The comment.
+     * @throws ResourceNotFoundException
+     */
+
     @PostMapping("/api/posts/{postId}/comments")
-    public Comment addComment(@PathVariable Long postId, @Valid @RequestBody Comment comment) {
+    public PostComment addComment(@PathVariable Long postId, @Valid @RequestBody PostComment comment) {
         return postRepository.findById(postId).map(
                 post -> {
-                    comment.setPost(post);
+                    comment.setPost(postId);
                     return commentRepository.save(comment);
                 }
         ).orElseThrow(() -> new ResourceNotFoundException("No post with that ID exists."));
     }
 
-    @PutMapping("/posts/{postId}/comments/{commentId}")
-    public Comment updateComment(@PathVariable Long postId, @PathVariable Long commentId, @Valid @RequestBody Comment commentRequest) {
-        if (!postRepository.existsById(postId)) {
-            throw new ResourceNotFoundException("No post with that ID.");
-        }
-
-        return commentRepository.findById(commentId).map(
-                comment -> {
-                    comment.setContent(commentRequest.getContent());
-                    return commentRepository.save(comment);
-                }
-        ).orElseThrow(() -> new ResourceNotFoundException("No comment with that ID."));
-    }
+    /**
+     * Delete a comment.
+     * @param postId Post to delete comment from.
+     * @param commentId Comment ID to delete.
+     */
 
     @DeleteMapping("/posts/{postId}/answers/{answerId}")
     public ResponseEntity<?> deleteAnswer(@PathVariable Long postId,

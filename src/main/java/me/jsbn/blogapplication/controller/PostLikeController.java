@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * REST controller for post likes.
+ */
 
 @RestController
 public class PostLikeController {
@@ -22,6 +25,12 @@ public class PostLikeController {
 
     @Autowired
     PostRepository postRepository;
+
+    /**
+     * Like a post.
+     * @param postId The post being liked.
+     * @return A new PostLike.
+     */
 
     @PostMapping("/api/posts/like/{postId}")
     public PostLike likePost(@PathVariable Long postId) {
