@@ -8,6 +8,7 @@ class PostDetails extends Component {
         super(props);
         this.state = { post: [], likes: 0 }
         this.likePost = this.likePost.bind(this);
+        this.unlikePost = this.unlikePost.bind(this);
         this.sendComment = this.sendComment.bind(this);
         this.createNewUser = this.createNewUser.bind(this);
     }
@@ -116,7 +117,7 @@ class PostDetails extends Component {
                 {localStorage.getItem("loggedIn") ? "" : <span>You need to be logged in to like a post.<br></br><br></br></span> }
                 <div className={"likes-flex"}>
                     <div className={"like-call-to-action u-pull-left"}>
-                        <button onClick={this.likePost} disabled={localStorage.loggedIn ? false : true}>
+                        <button className={"like-unlike-button"} onClick={this.state.postAlreadyLiked ? this.likePost : this.unlikePost} disabled={localStorage.loggedIn ? false : true}>
                             <i className="fas fa-thumbs-up" /> {this.state.postAlreadyLiked ? "LIKE" : "UNLIKE"}
                         </button>
                         <span className={"like-number"}><span id={"likesAmount"}>{this.state.likes}</span></span>
@@ -125,7 +126,7 @@ class PostDetails extends Component {
                         Posted by PLACEHOLDER at {new Date(Date.parse(this.state.post.createdTime)).toGMTString()}
                     </div>
                 </div>
-                <h4>Have something to say? Leave a comment.</h4>
+                <h4>Have something to say? Leave a comment!</h4>
                 {localStorage.getItem("loggedIn") || this.state.loggedIn ?
                     <div>
                         Commenting as {localStorage.getItem("givenName") + " " + localStorage.getItem("familyName")}
@@ -148,12 +149,12 @@ class PostDetails extends Component {
         );
     }
 
-    likePost() {
+    unlikePost() {
 
         let obj = {post: this.state.post.id,
-                   userGoogleId: localStorage.getItem("googleId")};
+            userGoogleId: localStorage.getItem("googleId")};
 
-        fetch("/api/posts/like/", {
+        fetch("/api/posts/unlike/", {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
@@ -162,16 +163,30 @@ class PostDetails extends Component {
             body: JSON.stringify(obj)
 
         }).then((res) => console.log(res));
-        this.setState({likes: this.state.likes + 1});
-        document.querySelector("button").disabled = true;
+        this.setState({likes: this.state.likes - 1, postAlreadyLiked: false});
         let thumb = document.querySelector(".fa-thumbs-up");
         thumb.classList.add("thumb-animation");
-        thumb.disabled = true;
+
+        document.querySelector(".like-unlike-button").disabled = true;
     }
 
-    paragraphify(str) {
-        let pStr = "<p>";
-        str.concat(pStr, str.replace('\n', '</p><p>'));
+    likePost() {
+        let obj = {post: this.state.post.id,
+                   userGoogleId: localStorage.getItem("googleId")};
+        fetch("/api/posts/like/", {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(obj)
+        }).then((res) => console.log(res));
+        this.setState({likes: this.state.likes + 1, postAlreadyLiked: true});
+        let thumb = document.querySelector(".fa-thumbs-up");
+        thumb.classList.add("thumb-animation");
+
+        document.querySelector(".like-unlike-button").disabled = true;
+
     }
 }
 

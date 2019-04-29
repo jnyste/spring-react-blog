@@ -41,6 +41,14 @@ public class PostLikeController {
         return likeRepository.save(like);
     }
 
+    @PostMapping("/api/posts/unlike")
+    public void unLikePost(@RequestBody PostLike like) throws IllegalAccessException {
+        Optional<PostLike> optional = likeRepository.findByUserGoogleIdAndPost(like.getUserGoogleId(), like.getPost());
+        if (optional.isPresent()) {
+            likeRepository.delete(optional.get());
+        }
+    }
+
     @GetMapping("/api/posts/{postId}/likes/{userGoogleId}")
     public Optional<PostLike> checkForLikeByUserOnPost(@PathVariable Long postId, @PathVariable String userGoogleId) {
         return likeRepository.findByUserGoogleIdAndPost(userGoogleId, postId);
