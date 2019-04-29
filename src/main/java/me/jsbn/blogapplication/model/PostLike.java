@@ -10,13 +10,15 @@ public class PostLike {
     @SequenceGenerator(name = "postlike_generator", sequenceName = "postlike_sequence")
     private Long id;
     private Long post;
+    private String userGoogleId;
 
     public PostLike() {
 
     }
 
-    public PostLike(Long postId, String ip) {
+    public PostLike(Long postId, String userGoogleId) {
         this.post = postId;
+        this.userGoogleId = userGoogleId;
     }
 
     public Long getId() {
@@ -35,4 +37,11 @@ public class PostLike {
         this.post = post;
     }
 
+    public String getUserGoogleId() {
+        return userGoogleId;
+    }
+
+    public void setUserGoogleId(String userGoogleId) {
+        this.userGoogleId = userGoogleId;
+    }
 }

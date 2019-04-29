@@ -37,9 +37,9 @@ class Post extends Component {
     }
 
     renderTags(tags) {
-        return <div className={"post-summary-tags"}>
+        return (<div className={"post-summary-tags"}>
             {tags.sort((a, b) => a.content.localeCompare(b.content)).map((tag) => <a href={"/posts/tag/" + tag.content}><span className={"post-summary-tag"}>{tag.content}</span></a>)}
-        </div>;
+        </div>);
     }
 }
 

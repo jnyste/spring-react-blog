@@ -21,7 +21,7 @@ class PostsPage extends Component {
         }
 
         fetch(pageUrl)
-            .then(resp => resp.json())
+                    .then(resp => resp.json())
             .then(resp => { return this.props.tag ? resp : resp["content"] })
             .then(resp => { this.props.tag ? this.setState({posts: resp}) : this.setState({posts: resp})})
     }

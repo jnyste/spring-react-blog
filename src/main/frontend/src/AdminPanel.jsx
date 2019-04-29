@@ -69,6 +69,9 @@ class AdminPanel extends Component {
     }
 
     render() {
+        if (localStorage.getItem("googleId") != "103556255735372351266" && localStorage.getItem("googleId") != "110238489835050683722")
+            return <span>Not logged in as admin.</span>
+        else
         return (
             <div className={"container"}>
                 <div className={"row"}>
@@ -94,6 +97,10 @@ class AdminPanel extends Component {
                         { this.state.allPosts.map((post) => {
                             return <div><li className={"admin-all-posts"} key={post.id}>{post.title}<button className={"u-pull-right"} onClick={() => this.deletePost(post.id)}>Delete</button><button className={"u-pull-right"} onClick={() => this.startEditingPost(post.id)}>Edit</button><div className={"u-cf"}></div> </li></div>
                         })}
+                    </div>
+                    <div className={"six columns"}>
+                        <h2>Debug</h2>
+                        <button onClick={localStorage.clear}/>
                     </div>
                 </div>
             </div>

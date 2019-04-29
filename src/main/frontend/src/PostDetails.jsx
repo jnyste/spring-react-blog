@@ -63,7 +63,12 @@ class PostDetails extends Component {
         }).then(response => response.json())
             .then(data => {
                 this.setState({post: data, likes: data.likes ? data.likes.length : 0});
-            })
+            }).then(() => {
+                fetch("/api/posts/" + this.state.post.id + "/likes/" + localStorage.getItem("googleId")).then((res) => res.json())
+                    .then((json) => (
+                        this.setState({postAlreadyLiked: json == null ? true : false})
+                    ))
+            });
 
         fetch("/api/posts/" + this.props.match.params.id + "/comments")
             .then(response => response.json()).then(data => {
@@ -80,7 +85,7 @@ class PostDetails extends Component {
             } else {
                 let googleId = response.profileObj.googleId;
                 let givenName = response.profileObj.givenName;
-                let familyName = response.profileObj.givenName;
+                let familyName = response.profileObj.familyName;
                 let profileImageUrl = "asd";
 
                 localStorage.setItem("givenName", givenName);
@@ -97,6 +102,7 @@ class PostDetails extends Component {
                         localStorage.setItem("userId", usr.id);
                         localStorage.setItem("givenName", usr.givenName);
                         localStorage.setItem("familyName", usr.familyName);
+                        localStorage.setItem("googleId", googleId);
                     }});
             }
         }
@@ -107,10 +113,11 @@ class PostDetails extends Component {
                 <h1>{this.state.post.title}</h1>
                 {this.state.post.content}
                 <hr/>
+                {localStorage.getItem("loggedIn") ? "" : <span>You need to be logged in to like a post.<br></br><br></br></span> }
                 <div className={"likes-flex"}>
                     <div className={"like-call-to-action u-pull-left"}>
-                        <button onClick={this.likePost}>
-                            <i class="fas fa-thumbs-up" />
+                        <button onClick={this.likePost} disabled={localStorage.loggedIn ? false : true}>
+                            <i className="fas fa-thumbs-up" /> {this.state.postAlreadyLiked ? "LIKE" : "UNLIKE"}
                         </button>
                         <span className={"like-number"}><span id={"likesAmount"}>{this.state.likes}</span></span>
                     </div>
@@ -142,8 +149,17 @@ class PostDetails extends Component {
     }
 
     likePost() {
-        fetch("/api/posts/like/" + this.state.post.id, {
-            method: "POST"
+
+        let obj = {post: this.state.post.id,
+                   userGoogleId: localStorage.getItem("googleId")};
+
+        fetch("/api/posts/like/", {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(obj)
 
         }).then((res) => console.log(res));
         this.setState({likes: this.state.likes + 1});
